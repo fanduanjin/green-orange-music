@@ -12,6 +12,7 @@ public class PenguinConstParameter {
 
     public static final String EN_PREFIX = "zza";
     public static final String ENC_NONCE = "CJBPACrRuNy7";
-    public static final String BASIC_URL="https://u.y.qq.com/cgi-bin/musics.fcg?";
+    public static final String BASIC_URL="http://u.y.qq.com/cgi-bin/musics.fcg?";
     public static final String BASIC_URL_TEMPLATE=BASIC_URL+"data={}&sign={}";
+
 }

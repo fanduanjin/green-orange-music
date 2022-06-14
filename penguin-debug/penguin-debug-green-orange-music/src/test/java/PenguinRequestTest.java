@@ -1,13 +1,12 @@
+import cn.fan.model.Album;
+import cn.fan.model.Mv;
 import cn.fan.model.Singer;
 import cn.fan.model.Song;
 import cn.fan.penguin.debug.core.http.DebugResult;
 import cn.fan.penguin.debug.core.model.MediaUrlInfo;
 import cn.fan.penguin.debug.core.param.PenguinRequestParameterCreator;
 import cn.fan.penguin.debug.core.request.*;
-import cn.fan.penguin.debug.request.SingerInfoRequestImpl;
-import cn.fan.penguin.debug.request.SingerListRequestImpl;
-import cn.fan.penguin.debug.request.SongInfoRequestImpl;
-import cn.fan.penguin.debug.request.SongListRequestImpl;
+import cn.fan.penguin.debug.request.*;
 import cn.hutool.core.util.PageUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -158,6 +157,30 @@ public class PenguinRequestTest {
         }
         System.out.println(" 耗时 "+(System.currentTimeMillis()-start));
 
+    }
+
+    @Test
+    public void albumInfoRequestTest() throws JsonProcessingException {
+        AlbumInfoRequestImpl albumInfoRequest=new AlbumInfoRequestImpl(penguinRequestParameterCreator);
+        //三国恋2022
+        DebugResult<Album> result= albumInfoRequest.getAlbumInfo("002Tsgf504IQTv");
+        if (result.isSuccess()) {
+            System.out.println("爬取成功 : " + objectMapper.writeValueAsString(result.getData()));
+        } else {
+            System.out.println("爬取失败 : " + result.getMessage());
+        }
+    }
+
+    @Test
+    public void mvInfoRequestTest() throws JsonProcessingException {
+        MvInfoRequestImpl mvInfoRequest=new MvInfoRequestImpl(penguinRequestParameterCreator);
+        //三国恋2022
+        DebugResult<List<Mv>> result= mvInfoRequest.getMvInfo("i0013atzhyk","r00904ing4e");
+        if (result.isSuccess()) {
+            System.out.println("爬取成功 : " + objectMapper.writeValueAsString(result.getData()));
+        } else {
+            System.out.println("爬取失败 : " + result.getMessage());
+        }
     }
 
 

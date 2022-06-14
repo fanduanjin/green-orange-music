@@ -16,7 +16,7 @@ import java.io.IOException;
  */
 public class LyricRequest extends AbstractDebugRequest<String> {
 
-    private static final String LYRIC_REQUEST_URL = "https://c.y.qq.com/lyric/fcgi-bin/fcg_query_lyric_new" +
+    private static final String LYRIC_REQUEST_URL = "http://c.y.qq.com/lyric/fcgi-bin/fcg_query_lyric_new" +
             ".fcg?format=json&songmid=";
     private final ThreadLocal<String> localSongMid = new ThreadLocal<>();
 

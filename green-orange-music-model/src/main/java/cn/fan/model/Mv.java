@@ -2,6 +2,9 @@ package cn.fan.model;
 
 import lombok.Data;
 
+import java.util.Date;
+import java.util.List;
+
 /**
  * @author fanduanjin
  * @Description
@@ -10,7 +13,11 @@ import lombok.Data;
  */
 @Data
 public class Mv {
-
     private long id;
-    private String vid;
+    private String mid;
+    private String desc;
+    private String name;
+    private long cloudPlayCount;
+    private Date publishDate;
+    private List<Singer> singers;
 }

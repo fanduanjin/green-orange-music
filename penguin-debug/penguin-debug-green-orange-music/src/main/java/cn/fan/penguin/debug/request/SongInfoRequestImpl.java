@@ -71,12 +71,12 @@ public class SongInfoRequestImpl extends AbstractSongInfoRequest<Song> {
         JsonNode mvNode = trackInfoNode.get("mv");
         Mv mv = new Mv();
         mv.setId(mvNode.get("id").asLong());
-        mv.setVid(mvNode.get("vid").asText());
+        mv.setMid(mvNode.get("vid").asText());
         song.setMvId(mv.getId());
         song.setMv(mv);
         //time_public
         JsonNode publicTimeNode = trackInfoNode.get("time_public");
-        song.setPublicTime(DateUtil.parse(publicTimeNode.asText()));
+        song.setPublishTime(DateUtil.parse(publicTimeNode.asText()));
         //singer
         JsonNode singerNode = trackInfoNode.get("singer");
         song.setSingers(new ArrayList<>(singerNode.size()));

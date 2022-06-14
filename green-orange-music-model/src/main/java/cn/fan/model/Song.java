@@ -37,7 +37,7 @@ public class Song {
     /**
      * 发布时间
      */
-    private Date publicTime;
+    private Date publishTime;
 
     private long mvId;
     private Mv mv;

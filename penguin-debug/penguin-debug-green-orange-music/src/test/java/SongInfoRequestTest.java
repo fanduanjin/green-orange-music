@@ -8,10 +8,12 @@ import cn.fan.penguin.debug.request.SingerListRequestImpl;
 import cn.fan.penguin.debug.request.SongInfoRequestImpl;
 import cn.fan.penguin.debug.request.SongListRequestImpl;
 import cn.hutool.core.util.PageUtil;
+import cn.hutool.core.util.SystemPropsUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -62,6 +64,7 @@ public class SongInfoRequestTest {
 
     @Test
     public void testAll() {
+        System.out.println(Runtime.getRuntime().availableProcessors());
         SingerListRequestImpl singerListRequest = new SingerListRequestImpl(penguinRequestParameterCreator);
         SongListRequestImpl songListRequest = new SongListRequestImpl(penguinRequestParameterCreator);
         SongInfoRequestImpl songInfoRequest = new SongInfoRequestImpl(penguinRequestParameterCreator);
@@ -90,12 +93,12 @@ public class SongInfoRequestTest {
                         for (int i = 1; i <= pageTotal; i++) {
                             DebugResult<List<Song>> songListResult = songListRequest.getSongList(singer.getMid(), i,
                                     SongListRequestImpl.DEFAULT_PAGE_SIZE);
-                            if(!songListResult.isSuccess()){
+                            if (!songListResult.isSuccess()) {
                                 continue;
                             }
-                            for(Song song:songListResult.getData()){
-                                DebugResult<Song> songInfoResult= songInfoRequest.getSongInfo(song.getMid());
-                                if(songInfoResult.isSuccess()){
+                            for (Song song : songListResult.getData()) {
+                                DebugResult<Song> songInfoResult = songInfoRequest.getSongInfo(song.getMid());
+                                if (songInfoResult.isSuccess()) {
                                     //计算成功爬取数量
                                     ShareConst.incNum();
                                 }
@@ -111,7 +114,14 @@ public class SongInfoRequestTest {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("应该爬取数量 : "+ShareConst.getTotalNum()+"  爬取成功数量 : "+ShareConst.getIncNum());
+        System.out.println("应该爬取数量 : " + ShareConst.getTotalNum() + "  爬取成功数量 : " + ShareConst.getIncNum());
+    }
+
+    @Test
+    public void test() {
+        long start=System.currentTimeMillis();
+        System.out.println(System.getenv("CPU_CORE"));
+        System.out.println(System.currentTimeMillis()-start);
     }
 
 }

@@ -10,7 +10,8 @@ import java.util.concurrent.Executors;
  */
 public class ShareConst {
 
-    public static final ExecutorService executor = Executors.newFixedThreadPool(16*2);
+    public static final ExecutorService executor =
+            Executors.newFixedThreadPool(80);
 
     private static int incNum=0;
 
