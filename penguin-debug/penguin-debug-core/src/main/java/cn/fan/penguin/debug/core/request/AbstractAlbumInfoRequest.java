@@ -57,7 +57,7 @@ public abstract class AbstractAlbumInfoRequest<T> extends AbstractDebugRequest<T
     }
 
     @Data
-    public class AlbumInfoRequestParam {
+    private class AlbumInfoRequestParam {
         private String albumMid;
         //private long albumID;
     }

@@ -7,6 +7,7 @@
         <module>green-orange-music-model</module>
         <module>penguin-debug/penguin-debug-green-orange-music</module>
         <module>penguin-debug/penguin-debug-core</module>
+        <module>server-music</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

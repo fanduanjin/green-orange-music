@@ -46,7 +46,7 @@ public class SongMediaUrlRequest extends AbstractDebugRequest<List<MediaUrlInfo>
      * dl.stream.qqmusic.qq.com/
      * isure.stream.qqmusic.qq.com/
      */
-    private static final String FILE_SERVER_LOCATION = "ws.stream.qqmusic.qq.com/";
+    private static final String FILE_SERVER_HOST = "ws.stream.qqmusic.qq.com/";
 
     public SongMediaUrlRequest(@NotNull PenguinRequestParameterCreator penguinRequestParameterCreator) {
         super(penguinRequestParameterCreator.getObjectMapper());
@@ -69,6 +69,7 @@ public class SongMediaUrlRequest extends AbstractDebugRequest<List<MediaUrlInfo>
 
     @Override
     protected List<MediaUrlInfo> convertGroupNode(JsonNode rootNode, JsonNode groupNode, JsonNode dataNode)  {
+        System.out.println(dataNode.toString());
         JsonNode midUrlInfoNode = dataNode.get("midurlinfo");
         if(midUrlInfoNode==null||midUrlInfoNode.isEmpty()){
             return Collections.emptyList();
@@ -88,7 +89,7 @@ public class SongMediaUrlRequest extends AbstractDebugRequest<List<MediaUrlInfo>
         if (StrUtil.isEmpty(mediaUrlInfo.getPurl())) {
             mediaUrlInfo.setServerUrl(StrUtil.EMPTY);
         } else {
-            mediaUrlInfo.setServerUrl(FILE_SERVER_LOCATION);
+            mediaUrlInfo.setServerUrl(FILE_SERVER_HOST);
         }
         mediaUrlInfo.setFileName(mediaUrlItemNode.get("filename").asText());
         System.out.println(mediaUrlItemNode.toString());

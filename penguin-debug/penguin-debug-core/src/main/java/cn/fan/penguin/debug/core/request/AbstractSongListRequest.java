@@ -77,6 +77,6 @@ public abstract class AbstractSongListRequest<T> extends AbstractDebugRequest<T>
         private int order=1;
         private String singerMid;
         private Integer begin;
-        private Integer num;
+        private Integer num=DEFAULT_PAGE_SIZE;
     }
 }

@@ -54,7 +54,7 @@ public abstract class AbstractMvInfoRequest<T> extends AbstractDebugRequest<T> {
     }
 
     @Data
-    public class MvInfoRequestParam{
+    private class MvInfoRequestParam{
 
         @JsonProperty("vidlist")
         private String [] vidList;
