@@ -8,19 +8,17 @@
         <outputRelativeToContentRoot value="true" />
         <module name="penguin-debug-green-orange-music" />
         <module name="penguin-debug-core" />
-        <module name="green-orange-music-model" />
+        <module name="model" />
+        <module name="server-music" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="penguin-debug" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="green-orange-music-model" options="-parameters" />
-      <module name="penguin-debug" options="-parameters" />
+      <module name="model" options="-parameters" />
       <module name="penguin-debug-core" options="-parameters" />
       <module name="penguin-debug-green-orange-music" options="-parameters" />
+      <module name="server-music" options="-parameters" />
     </option>
   </component>
 </project>

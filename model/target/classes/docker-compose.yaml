@@ -1,0 +1,13 @@
+version: "3.7"
+services:
+  mysql-proxy:
+    container_name: mysql-proxy
+    image: apache/shardingsphere-proxy
+    privileged: true
+    restart: always
+    network_mode: host
+    environment:
+      - PORT=9908
+    volumes:
+      - /docker-data/shardingsphere-proxy/conf:/opt/shardingsphere-proxy/conf
+      - /docker-data/shardingsphere-proxy/ext-lib:/opt/shardingsphere-proxy/ext-lib

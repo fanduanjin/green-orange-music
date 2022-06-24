@@ -1,0 +1,5 @@
+spring:
+  redis:
+    host: jlht.icu
+    password: fDj0604^
+    port: 9979
