@@ -4,6 +4,7 @@ import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.io.IOException;
@@ -21,11 +22,14 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  */
 @SpringBootApplication
 public class MusicApplication {
+
+
     @Autowired
     public ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
     public static void main(String[] args) throws InterruptedException {
         SpringApplication.run(MusicApplication.class, args);
+        System.out.println("启动完毕");
         try {
             System.in.read();
         } catch (IOException e) {

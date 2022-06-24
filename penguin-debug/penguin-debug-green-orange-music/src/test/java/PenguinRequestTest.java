@@ -3,6 +3,7 @@ import cn.fan.model.Mv;
 import cn.fan.model.Singer;
 import cn.fan.model.Song;
 import cn.fan.penguin.debug.core.http.DebugResult;
+import cn.fan.penguin.debug.core.http.Promise;
 import cn.fan.penguin.debug.core.http.ResultHandler;
 import cn.fan.penguin.debug.core.model.MediaUrlInfo;
 import cn.fan.penguin.debug.core.param.PenguinRequestParameterCreator;
@@ -22,6 +23,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.lang.annotation.Documented;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadFactory;
 
@@ -273,11 +275,13 @@ public class PenguinRequestTest {
 
         DebugResult result =
                 songOrderListRequest.getSongOrderList(7994616672L, 2);
-        if (result.isSuccess()) {
-            System.out.println("爬取成功 : " + objectMapper.writeValueAsString(result.getData()));
-        } else {
-            System.out.println("爬取失败 : " + result.getMessage());
-        }
+        Promise<List<Song>> promise=new Promise();
+        promise.success(list->{
+            System.out.println(list.get(3));
+        }).failed(str->{
+            System.out.println(str);
+        }).when(result);
+
         System.out.println(System.currentTimeMillis() - start);
     }
 
@@ -298,12 +302,13 @@ public class PenguinRequestTest {
     public void test32() throws IOException {
         CategoryInfoRequestImpl categoryInfoRequest = new CategoryInfoRequestImpl(objectMapper);
         long start = System.currentTimeMillis();
-        DebugResult result= categoryInfoRequest.getCategoryInfo();
-        if (result.isSuccess()) {
-            System.out.println("爬取成功 : " + objectMapper.writeValueAsString(result.getData()));
-        } else {
-            System.out.println("爬取失败 : " + result.getMessage());
-        }
+        DebugResult<Object> result= categoryInfoRequest.getCategoryInfo();
+        Promise<Object> promise=new Promise();
+        promise.success(obj->{
+            System.out.println("");
+        }).failed(str->{
+            System.out.println(str);
+        }).when(result);
 
         System.out.println(System.currentTimeMillis() - start);
     }

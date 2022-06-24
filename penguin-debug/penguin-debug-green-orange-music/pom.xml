@@ -20,7 +20,7 @@
     <dependencies>
         <dependency>
             <groupId>cn.fan</groupId>
-            <artifactId>green-orange-music-model</artifactId>
+            <artifactId>model</artifactId>
             <version>${pversion}</version>
         </dependency>
 
