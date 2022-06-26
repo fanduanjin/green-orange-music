@@ -278,9 +278,9 @@ public class PenguinRequestTest {
         Promise<List<Song>> promise=new Promise();
         promise.success(list->{
             System.out.println(list.get(3));
-        }).failed(str->{
+        }).fail(str->{
             System.out.println(str);
-        }).when(result);
+        }).end(result);
 
         System.out.println(System.currentTimeMillis() - start);
     }
@@ -306,9 +306,9 @@ public class PenguinRequestTest {
         Promise<Object> promise=new Promise();
         promise.success(obj->{
             System.out.println("");
-        }).failed(str->{
+        }).fail(str->{
             System.out.println(str);
-        }).when(result);
+        }).end(result);
 
         System.out.println(System.currentTimeMillis() - start);
     }

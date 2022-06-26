@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: server-music
+  cloud:
+    zookeeper:
+      connect-string: yun.host:9981

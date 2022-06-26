@@ -1,6 +1,7 @@
 package cn.fan.penguin.debug.core.http;
 
 import java.util.Scanner;
+import java.util.function.Consumer;
 
 /**
  * @author fanduanjin
@@ -10,26 +11,28 @@ import java.util.Scanner;
  */
 public class Promise<T> {
 
-    Successful<T> successful;
-    Failed failed;
+    private Consumer<T> success;
+    private Consumer<String> fail;
 
-    public  Promise success(Successful<T> successful){
-        this.successful= successful;
+
+    public Promise fail(Consumer<String> consumer) {
+        this.fail = consumer;
         return this;
     }
 
-    public Promise failed(Failed failed){
-        this.failed=failed;
+    public Promise success(Consumer<T> consumer) {
+        this.success = consumer;
         return this;
     }
 
-    public void when(DebugResult<T> debugResult){
-        if(debugResult.isSuccess()){
-            successful.success(debugResult.getData());
-        }else{
-            failed.failed(debugResult.getMessage());
+    public boolean end(DebugResult<T> result) {
+        if (result.isSuccess()) {
+            this.success.accept(result.getData());
+            return true;
+        } else {
+            this.fail.accept(result.getMessage());
+            return false;
         }
     }
-
 
 }

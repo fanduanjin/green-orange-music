@@ -1,5 +1,6 @@
 package cn.fan.model;
 
+
 import cn.fan.model.$enum.SingerType;
 import lombok.Data;
 
@@ -13,7 +14,7 @@ import java.util.List;
  * @Created by fanduanjin
  */
 @Data
-public class Singer {
+public class Singer  extends BaseModel{
 
     private long id;
     private String mid;

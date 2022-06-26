@@ -16,5 +16,5 @@ public interface Successful<T> {
     /**
      *
      */
-    void success(T t);
+    <T> void success(T t);
 }

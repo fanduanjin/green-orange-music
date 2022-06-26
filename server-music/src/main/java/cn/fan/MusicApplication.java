@@ -4,7 +4,7 @@ import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.io.IOException;
@@ -21,6 +21,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * @Created by fanduanjin
  */
 @SpringBootApplication
+@EnableDiscoveryClient
 public class MusicApplication {
 
 

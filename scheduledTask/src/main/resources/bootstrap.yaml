@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: scheduled-task
+  cloud:
+    zookeeper:
+      connect-string: yun.host:9981

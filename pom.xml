@@ -8,6 +8,9 @@
         <module>penguin-debug/penguin-debug-green-orange-music</module>
         <module>penguin-debug/penguin-debug-core</module>
         <module>server-music</module>
+        <module>scheduledTask</module>
+        <module>penguin-debug/penguin-debug-starter-spring-boot</module>
+        <module>penguin-debug/penguin-debug-starter-spring-boot/penguin-debug-spring-boot-autoconfig</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -19,18 +22,56 @@
     <groupId>cn.fan</groupId>
     <artifactId>GreenOrangeMusic</artifactId>
     <packaging>pom</packaging>
-    <version>${pversion}</version>
+    <version>1.1.0-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-        <pversion>1.1.0-SNAPSHOT</pversion>
         <hutool.version>5.8.0</hutool.version>
         <lombok.version>1.18.20</lombok.version>
+        <spring.cloud-version>Hoxton.SR8</spring.cloud-version>
+        <mybatis.version>2.2.2</mybatis.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>cn.fan</groupId>
+                <artifactId>model</artifactId>
+                <version>1.1.0-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.fan</groupId>
+                <artifactId>penguin-debug-core</artifactId>
+                <version>1.1.0-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.fan</groupId>
+                <artifactId>penguin-debug-green-orange-music</artifactId>
+                <version>1.1.0-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.fan</groupId>
+                <artifactId>penguin-debug-starter-spring-boot</artifactId>
+                <version>1.1.0-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.fan</groupId>
+                <artifactId>penguin-debug-spring-boot-autoconfig</artifactId>
+                <version>1.1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring.cloud-version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-http</artifactId>
@@ -48,6 +89,12 @@
                 <artifactId>hutool-crypto</artifactId>
                 <version>${hutool.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
         </dependencies>
 
     </dependencyManagement>
@@ -59,7 +106,6 @@
             <version>${lombok.version}</version>
         </dependency>
     </dependencies>
-
 
     <build>
         <plugins>
