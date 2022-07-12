@@ -1,6 +1,7 @@
 package cn.fan.scheduled;
 
 import cn.fan.model.Singer;
+import cn.fan.model.constrans.QueuedName;
 import cn.fan.penguin.debug.core.http.DebugResult;
 import cn.fan.penguin.debug.core.http.Promise;
 import cn.fan.penguin.debug.core.request.SingerTotalRequest;
@@ -9,7 +10,9 @@ import cn.hutool.core.util.PageUtil;
 import com.fasterxml.jackson.databind.ser.impl.MapEntrySerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
@@ -43,10 +46,13 @@ public class DebugSingerListScheduled implements SchedulingConfigurer, Runnable 
     @Autowired
     private SingerListRequestImpl singerListRequest;
 
+    @Autowired
+    RabbitTemplate rabbitTemplate;
+
     @Override
     public void configureTasks(ScheduledTaskRegistrar scheduledTaskRegistrar) {
-        LOGGER.info("提交定时任务");
-        scheduledTaskRegistrar.addCronTask(this,"0 */1 * * * ?");
+        LOGGER.info("提交定时任务:同步歌手列表");
+        scheduledTaskRegistrar.addCronTask(this, "0 */1 * * * ?");
     }
 
 
@@ -64,18 +70,17 @@ public class DebugSingerListScheduled implements SchedulingConfigurer, Runnable 
         int totalPage = PageUtil.totalPage(singerTotal, SingerListRequestImpl.SIN_OFFSET);
         //创建真实爬取计数器
         AtomicInteger debugCount = new AtomicInteger();
-        AtomicInteger debugPageCount=new AtomicInteger();
         //根据总页数创建countDownLatch
         CountDownLatch countDownLatch = new CountDownLatch(totalPage);
         //创建promise
-        Promise<List<Singer>>  promise=new Promise<>();
-        promise.success(singers ->{
+        Promise<List<Singer>> promise = new Promise<>();
+        promise.success(singers -> {
+            //发送mq
+            rabbitTemplate.convertAndSend(QueuedName.SYNC_SINGER_INFO, singers);
             //累加计数器
             debugCount.addAndGet(singers.size());
-            debugPageCount.incrementAndGet();
-            //countDownLatch -1
-            countDownLatch.countDown();
-        }).fail(message->{
+
+        }).fail(message -> {
             LOGGER.warn(message.toString());
         });
         //根据分页大小创建future
@@ -85,20 +90,20 @@ public class DebugSingerListScheduled implements SchedulingConfigurer, Runnable 
             CompletableFuture.runAsync(new Runnable() {
                 @Override
                 public void run() {
-                    DebugResult<List<Singer>> singerListResult=singerListRequest.getSingerList(finalI);
+                    DebugResult<List<Singer>> singerListResult = singerListRequest.getSingerList(finalI);
                     //将返回数据交给promise处理
                     promise.end(singerListResult);
+                    //countDownLatch -1
+                    countDownLatch.countDown();
                 }
-            },threadPoolTaskExecutor);
+            }, threadPoolTaskExecutor);
         }
         try {
-            LOGGER.info("阻塞线程");
             countDownLatch.await();
         } catch (InterruptedException e) {
             LOGGER.error(e.toString());
         }
-        LOGGER.info("歌手总数量 : "+singerTotal+"  歌手总页数"+totalPage);
-        LOGGER.info("爬取总数量 : "+debugCount.get()+"  爬取总页数"+debugPageCount.get());
+        LOGGER.info("歌手总数量 : " + singerTotal + "  爬取歌手总数量" + debugCount);
     }
 
 }

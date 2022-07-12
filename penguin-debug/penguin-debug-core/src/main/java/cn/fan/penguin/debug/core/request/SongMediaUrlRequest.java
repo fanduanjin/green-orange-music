@@ -10,9 +10,7 @@ import cn.hutool.http.HttpRequest;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.istack.internal.NotNull;
-import javafx.beans.binding.StringBinding;
+
 import lombok.Data;
 
 import java.io.IOException;
@@ -48,7 +46,7 @@ public class SongMediaUrlRequest extends AbstractDebugRequest<List<MediaUrlInfo>
      */
     private static final String FILE_SERVER_HOST = "ws.stream.qqmusic.qq.com/";
 
-    public SongMediaUrlRequest(@NotNull PenguinRequestParameterCreator penguinRequestParameterCreator) {
+    public SongMediaUrlRequest( PenguinRequestParameterCreator penguinRequestParameterCreator) {
         super(penguinRequestParameterCreator.getObjectMapper());
         this.penguinRequestParameterCreator = penguinRequestParameterCreator;
     }

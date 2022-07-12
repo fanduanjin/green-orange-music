@@ -26,11 +26,15 @@ public class Promise<T> {
     }
 
     public boolean end(DebugResult<T> result) {
-        if (result.isSuccess()) {
-            this.success.accept(result.getData());
-            return true;
-        } else {
-            this.fail.accept(result.getMessage());
+        try {
+            if (result.isSuccess()) {
+                this.success.accept(result.getData());
+                return true;
+            } else {
+                this.fail.accept(result.getMessage());
+                return false;
+            }
+        } catch (Exception e) {
             return false;
         }
     }

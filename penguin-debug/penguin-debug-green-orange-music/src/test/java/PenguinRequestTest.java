@@ -73,8 +73,7 @@ public class PenguinRequestTest {
         SongMediaUrlRequest lyricRequest = new SongMediaUrlRequest(penguinRequestParameterCreator);
         //歌曲 沦陷001BTwv31D0hbb
         //歌曲 爱，存在 vip 000hsEco0QN1do
-        DebugResult<List<MediaUrlInfo>> result = lyricRequest.getSongMediaUrl("001BTwv31D0hbb",
-                "002BL4nH09vMJs");
+        DebugResult<List<MediaUrlInfo>> result = lyricRequest.getSongMediaUrl("0038BQfx4MB0MR");
         if (result.isSuccess()) {
             System.out.println("爬取成功 : " + objectMapper.writeValueAsString(result.getData()));
         } else {
@@ -161,7 +160,7 @@ public class PenguinRequestTest {
     public void songInfoRequestTest() throws JsonProcessingException {
         long start = System.currentTimeMillis();
         SongInfoRequestImpl songInfoRequest = new SongInfoRequestImpl(penguinRequestParameterCreator);
-        DebugResult result = songInfoRequest.getSongInfo("001PLl3C4gPSCI");
+        DebugResult result = songInfoRequest.getSongInfo("003jjoM94WLiTf");
         if (result.isSuccess()) {
             System.out.println("爬取成功 : " + objectMapper.writeValueAsString(result.getData()));
         } else {
@@ -298,19 +297,5 @@ public class PenguinRequestTest {
         System.out.println(System.currentTimeMillis() - start);
     }
 
-    @Test
-    public void test32() throws IOException {
-        CategoryInfoRequestImpl categoryInfoRequest = new CategoryInfoRequestImpl(objectMapper);
-        long start = System.currentTimeMillis();
-        DebugResult<Object> result= categoryInfoRequest.getCategoryInfo();
-        Promise<Object> promise=new Promise();
-        promise.success(obj->{
-            System.out.println("");
-        }).fail(str->{
-            System.out.println(str);
-        }).end(result);
-
-        System.out.println(System.currentTimeMillis() - start);
-    }
 
 }

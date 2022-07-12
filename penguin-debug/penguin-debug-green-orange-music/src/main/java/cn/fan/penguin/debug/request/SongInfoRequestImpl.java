@@ -74,6 +74,9 @@ public class SongInfoRequestImpl extends AbstractSongInfoRequest<Song> {
         mv.setMid(mvNode.get("vid").asText());
         song.setMvId(mv.getId());
         song.setMv(mv);
+        //pay isTrue?vip:noVip
+        JsonNode payNode = trackInfoNode.get("pay");
+        song.setVip(payNode.get("pay_play").asBoolean());
         //time_public
         JsonNode publicTimeNode = trackInfoNode.get("time_public");
         song.setPublishTime(DateUtil.parse(publicTimeNode.asText()));
@@ -87,7 +90,7 @@ public class SongInfoRequestImpl extends AbstractSongInfoRequest<Song> {
             singer.setName(jsonNode.get("name").asText());
             song.getSingers().add(singer);
         });
-        // DTO pay
+        //DTO pay
         return song;
     }
 }

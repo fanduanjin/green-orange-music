@@ -4,3 +4,7 @@ spring:
   cloud:
     zookeeper:
       connect-string: yun.host:9981
+  rabbitmq:
+    listener:
+      simple:
+        concurrency:

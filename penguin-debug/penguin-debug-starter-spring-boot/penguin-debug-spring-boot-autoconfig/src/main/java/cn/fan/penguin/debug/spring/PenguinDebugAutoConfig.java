@@ -2,9 +2,10 @@ package cn.fan.penguin.debug.spring;
 
 import cn.fan.penguin.debug.core.param.PenguinRequestParameterCreator;
 import cn.fan.penguin.debug.core.request.SingerTotalRequest;
-import cn.fan.penguin.debug.request.SingerInfoRequestImpl;
-import cn.fan.penguin.debug.request.SingerListRequestImpl;
+import cn.fan.penguin.debug.core.request.SongTotalRequest;
+import cn.fan.penguin.debug.request.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
@@ -47,4 +48,23 @@ public class PenguinDebugAutoConfig {
         return new SingerInfoRequestImpl(penguinRequestParameterCreator());
     }
 
+    @Bean
+    CategoryInfoRequestImpl categoryInfoRequest(){
+        return new CategoryInfoRequestImpl(objectMapper);
+    }
+
+    @Bean
+    SongTotalRequest songTotalRequest(){
+        return new SongTotalRequest(penguinRequestParameterCreator());
+    }
+
+    @Bean
+    SongListRequestImpl songListRequest(){
+        return new SongListRequestImpl(penguinRequestParameterCreator());
+    }
+
+    @Bean
+    SongInfoRequestImpl songInfoRequest(){
+        return new SongInfoRequestImpl(penguinRequestParameterCreator());
+    }
 }

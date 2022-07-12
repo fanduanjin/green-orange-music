@@ -11,6 +11,9 @@
         <module>scheduledTask</module>
         <module>penguin-debug/penguin-debug-starter-spring-boot</module>
         <module>penguin-debug/penguin-debug-starter-spring-boot/penguin-debug-spring-boot-autoconfig</module>
+        <module>api</module>
+        <module>tools-redis-spring-boot-starter</module>
+        <module>tools-redis-spring-boot-starter/tools-redis-spring-boot-autoconfig</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -29,8 +32,9 @@
         <maven.compiler.target>8</maven.compiler.target>
         <hutool.version>5.8.0</hutool.version>
         <lombok.version>1.18.20</lombok.version>
-        <spring.cloud-version>Hoxton.SR8</spring.cloud-version>
+        <spring.cloud-version>Hoxton.SR12</spring.cloud-version>
         <mybatis.version>2.2.2</mybatis.version>
+        <druid.version>1.2.8</druid.version>
     </properties>
 
     <dependencyManagement>
@@ -61,7 +65,25 @@
 
             <dependency>
                 <groupId>cn.fan</groupId>
+                <artifactId>api</artifactId>
+                <version>1.1.0-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.fan</groupId>
                 <artifactId>penguin-debug-spring-boot-autoconfig</artifactId>
+                <version>1.1.0-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.fan</groupId>
+                <artifactId>tools-redis-spring-boot-autoconfig</artifactId>
+                <version>1.1.0-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.fan</groupId>
+                <artifactId>tools-redis-spring-boot-starter</artifactId>
                 <version>1.1.0-SNAPSHOT</version>
             </dependency>
             <dependency>
@@ -91,9 +113,21 @@
             </dependency>
 
             <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-cache</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>${mybatis.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
             </dependency>
         </dependencies>
 
@@ -107,13 +141,13 @@
         </dependency>
     </dependencies>
 
-    <build>
+    <!--<build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-    </build>
+    </build>-->
 
 </project>

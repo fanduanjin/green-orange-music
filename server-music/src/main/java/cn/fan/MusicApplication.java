@@ -1,18 +1,15 @@
 package cn.fan;
 
-import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.zookeeper.config.ZookeeperPropertySourceLocator;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
+import javax.persistence.Entity;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
  * @author fanduanjin
@@ -22,11 +19,9 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  */
 @SpringBootApplication
 @EnableDiscoveryClient
+@EnableJpaAuditing
 public class MusicApplication {
 
-
-    @Autowired
-    public ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
     public static void main(String[] args) throws InterruptedException {
         SpringApplication.run(MusicApplication.class, args);
